@@ -4,6 +4,9 @@ public class CashRegister {
 
 	public static void main(String[] args) {
 
+		double price;
+		double amount;
+		
 		// User Story #1
 		// The user is prompted asking for the price of the item.
 
