@@ -7,7 +7,6 @@ public class CashRegister {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
-		// listed variables
 		int cent = 0;
 		int cent5 = 0;
 		int cent10 = 0;
@@ -20,17 +19,10 @@ public class CashRegister {
 		boolean keepAppRunning = menuChoice(sc);
 
 		while (keepAppRunning) {
-			// menuChoice(sc);
 
-			// User Story #1
-			// The user is prompted asking for the price of the item.
 			System.out.println("Please enter the price of the item: ");
 			int price = convertForRoundingError(sc.nextDouble());
 			sc.nextLine();
-
-			// User Story #2
-			// The user is then prompted asking how much money was tendered by the customer.
-			// along with how much they need and if exact change then done
 			System.out.println("Amount given: ");
 			int amountTendered = convertForRoundingError(sc.nextDouble());
 			sc.nextLine();
@@ -69,28 +61,20 @@ public class CashRegister {
 						changeGivenBack -= 1;
 					}
 				}
-//				System.out.println(changeGivenBackCopy + " pennies " + cent + " nickles " + cent5 + " dimes " + cent10
-//						+ " quarters " + cent25 + " dollars " + dollar + " fives " + dollar5 + " tens " + dollar10
-//						+ " twenties " + dollar20);
-
 				displayChangeGivenBack(changeGivenBackCopy, cent, cent5, cent10, cent25, dollar, dollar5, dollar10,
 						dollar20);
-				System.out.println(changeGivenBack);
-				System.out.println(changeGivenBackCopy);
-				changeGivenBack = 0;
-				changeGivenBackCopy = 0;
+				cent = 0;
+				cent5 = 0;
+				cent10 = 0;
+				cent25 = 0;
+				dollar = 0;
+				dollar5 = 0;
+				dollar10 = 0;
+				dollar20 = 0;
 			}
 			boolean decision = askForAnotherSale(sc);
 			keepAppRunning = decision;
 		}
-	}
-
-	public static int convertForRoundingError(double cash) {
-		int wholeDollars = (int) cash;
-		double change = (cash - wholeDollars);
-		int roundedChange = ((int) ((change * 100) + 0.5)) + wholeDollars * 100;
-		return roundedChange;
-
 	}
 
 	public static void displayMenu() {
@@ -123,19 +107,24 @@ public class CashRegister {
 		return true;
 	}
 
+	public static int convertForRoundingError(double cash) {
+		int wholeDollars = (int) cash;
+		double change = (cash - wholeDollars);
+		int roundedChange = ((int) ((change * 100) + 0.5)) + wholeDollars * 100;
+		return roundedChange;
+	}
+
 	public static boolean askForAnotherSale(Scanner sc) {
 		boolean keepSelling = true;
 		System.out.println("Would you like to make another sale? Yes or No");
-		sc.nextLine();
 		String choice = sc.nextLine();
 		if (choice.equals("Yes") || choice.equals("yes") || choice.equals("Y") || choice.equals("y")) {
 			keepSelling = true;
 		} else if (choice.equals("No") || choice.equals("no") || choice.equals("N") || choice.equals("n")) {
 			keepSelling = false;
-
+			System.out.println("shutting down register. Goodbye!");
 		}
 		return keepSelling;
-
 	}
 
 	public static void displayChangeGivenBack(int changeGivenBackCopy, int cent, int cent5, int cent10, int cent25,
@@ -199,16 +188,14 @@ public class CashRegister {
 				changeGivenBackCopy -= (5 * cent5);
 				cent5 = 0;
 			} else if (cent > 1) {
-				System.out.println(cent + " cents");
+				System.out.println(cent + " pennies");
 				changeGivenBackCopy -= (1 * cent);
-				System.out.println(changeGivenBackCopy);
 				cent = 0;
 			} else if (cent == 1) {
-				System.out.println(cent + " cent");
+				System.out.println(cent + " penny");
 				changeGivenBackCopy -= (1 * cent);
-				System.out.println(changeGivenBackCopy);
 				cent = 0;
 			}
 		}
 	}
-} 
+}
